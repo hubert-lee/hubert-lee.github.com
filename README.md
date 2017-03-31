@@ -26,8 +26,11 @@
 1. _post 폴더 내의 파일에서 YAML Front Matter block에 <code>author</code>와 <code>author-email</code>을 넣을수 있습니다. <code>author</code>는 작성한 사람, 그리고 <code>author-email</code>은 작성자 이메일, 이렇게 추가 정보를 입력할 수 있고 실제 포스트에는 mail링크가 걸리게 됩니다. ( <code>author</code>만 있으면 링크 없음 )
 2. 역시 _post 폴더 내의 파일에서 YAML Front Matter block에 <code>publish</code>란에 <code>false</code>를 입력하면 게시물을 볼 수 없습니다. 포스팅 리스트에는 뜨지만 글 내용은 Coming Soon이 뜹니다. draft작업이 다 끝나면 <code>publish</code>를 <code>true</code>로 하거나 혹은 그냥 <code>publish</code> 자체를 지워주시면 됩니다.
 
-  [Jekyll]: http://jekyllrb.com
-  [Markdown]: http://daringfireball.net/projects/markdown/
-  [RDiscount]: http://dafoster.net/projects/rdiscount/
-  [jekyll thema]:https://spoqa.github.io/
+## etc
+  jekyll thema : https://spoqa.github.io/
   - 기술블로그 테마가 너무 깔끔하고 이뻐서 차용하였습니다.
+
+## reference
+  http://jekyllrb.com
+  http://daringfireball.net/projects/markdown/
+  http://dafoster.net/projects/rdiscount/
