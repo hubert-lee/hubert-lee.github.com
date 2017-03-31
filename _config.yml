@@ -1,0 +1,27 @@
+highlighter: rouge
+paginate: 10
+markdown: kramdown
+host: 0.0.0.0
+
+subscribe_rss: /atom.xml
+kramdown:
+  input: GFM
+  hard_wrap: false
+
+home_url: "https://hubert-lee.github.io"
+representing_image: "/images/og-logo.png"
+twitter_image: "/images/twitter-card.png"
+
+sass:
+    sass_dir: css
+
+
+disqus: 'voidtype'
+
+google_analytics_token: 'UA-96095765-1'
+
+category_dir : category/
+
+trawler_mode: true
+gems: [jekyll-paginate]
+future: true
