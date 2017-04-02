@@ -11,11 +11,7 @@ layout: default
 </div>
 {% endif %}
 
-{% if page.publish == false %}
-  <div class="post">Coming soon</div>
-{% else %}
-  <div class="post">{{ content }}</div>
-{% endif %}
+<div class="post">{{ content }}</div>
 
 <div class="post-footer">
   <div class="back-btn"><a href="/">목록으로 돌아가기</a></div>
@@ -48,6 +44,5 @@ fjs.parentNode.insertBefore(js, fjs);
   .hiring-banner {
     height: 220px;
   }
-}
 }
 </style>
