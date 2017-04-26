@@ -4,7 +4,7 @@ title: scala - Basic
 author: 이동훈
 author-email: voidtype@gmail.com
 description: spark+scala 조합으로 기본적인 데이터 다루는 방법에 대해서 정리합니다.
-publish: false
+publish: true
 categories : scala
 tags : ['spark','scala']
 ---
@@ -21,7 +21,7 @@ query   disp_code extra_info
 
 
 ## "query"필드만 추출해서 카운트 하기
-```scala
+``` scala
 /*
  ./log.txt 파일을 읽어서 String으로 구성된 RDD를 리턴합니다.
  */
@@ -80,8 +80,18 @@ val outRDD: RDD[String] = dispRDD.join(clkRDD)
 ## 마무리...
 많이는 안써봤지만, 조금 사용하다보니 어느정도 패턴이 생기게 되고, 곧 익숙해졌습니다. 이런 로그데이터를 분석 할때는 보통 projection(원하는 필드만 타겟팅)후, counting이나 gorupby, join과 같이원하는 오퍼레이션을 수행합니다. 그리고 수행후 결과에 filtering을 해서 원하는 데이터만 추출하고, 출력결과물을 생성하는 것입니다.
 
-projection은 보통 문자열을 ``split``하고 나서 원하는 필드만 tuple로 구성하는 형식으로 진행됩니다.
-이후에는 보통 key-value와 같이 ``Tuple2``형식으로 변환하여 여러가지 연산을 수행하게 됩니다.
+projection은 보통 문자열을 ``split``하고 나서 원하는 필드만 골라서 튜플이나, 리스트로 만들어서 사용하게 됩니다.
+
+1) split 이후 튜플로 만들기
+```scala
+    inputRDD.map(split("\t")).map(x => Tuple2(x(0),x(1))
+```
+2) split 이후 리스트로 만들기
+```scala
+    inputRDD.map(split("\t")).map(x => x(0) :: x(1) :: List())
+            .map(_.mkString(","))
+```
+``reduceByKey``나 ``groupByKey``와 같은 연산을 사용해야 하는 경우 tuple2로 변환해서 사용하면 편리하고, 리스트로 변경하는 경우에는 ``mkString``함수를 사용해서 간단히 원하는 포맷으로 변경해서 출력할 수 있습니다. 위의 2)예제에서는 탭으로 구분된 데이터를 다시 콤마로 구분된 포맷으로 변경하게 됩니다.
 
 
 ## 문제해결
@@ -91,16 +101,23 @@ projection은 보통 문자열을 ``split``하고 나서 원하는 필드만 tup
 
 spark의 경우에는 ``spark-submit``명령어로 수행을 시작하는데요, 다음과 같은 옵션으로 executor가 사용할 수 있는 최대 메모리를 할당해줄 수 있습니다.
 ```
-$ spark-shell 
+function extracting()
+{
+    input=$1
+    output=$2
+    package="빌드된 jar 패키지 이름"
+
+    dp-hadoop fs -test -d ${output} && dp-hadoop fs -rm -r -skipTrash ${output} \
+                                    || echo "create output directory."
+    ${SPARK_HOME}/bin/spark-submit  \
+        --master yarn-client  \    # hadoop mode로 실행
+        --num-executors 100 \      # 최대 executors 개수 설정
+        --executor-memory 8G \     # executor가 사용할 수 있는 메모리 설정
+         "target/scala-2.10/${package}" \
+         ${input} \
+         ${output}
+}
 ```
-
-
-
-
-
-
-
-
 
 
 
