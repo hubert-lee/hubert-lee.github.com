@@ -23,5 +23,5 @@ google_analytics_token: 'UA-96095765-1'
 category_dir : category/
 
 trawler_mode: true
-gems: [jekyll-paginate]
+plugins: [jekyll-paginate]
 future: true
